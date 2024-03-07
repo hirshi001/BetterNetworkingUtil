@@ -5,8 +5,10 @@ plugins {
 group = 'com.hirshi001'
 version = '1.0-SNAPSHOT'
 
-[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+sourceCompatibility = JavaVersion.VERSION_15
+targetCompatibility = JavaVersion.VERSION_15
 
+[compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
 
 repositories {
     mavenCentral()
@@ -36,5 +38,3 @@ test {
     useJUnitPlatform()
     testLogging.showStandardStreams = true
 }
-sourceCompatibility = JavaVersion.VERSION_15
-targetCompatibility = JavaVersion.VERSION_15
