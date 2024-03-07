@@ -41,16 +41,19 @@ public class ByteBufSerializerAnnotationProcesser extends AbstractProcessor {
     private final int MODE_DESERIALIZE = 1;
 
     @Override
-    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
         typeUtils = processingEnv.getTypeUtils();
         byteBufSerializable = processingEnv.getElementUtils().getTypeElement("com.hirshi001.serializer.ByteBufSerializable").asType();
+    }
 
+    @Override
+    public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         List<Element> addedSerializers = new ArrayList<>();
         for (TypeElement element : annotations) {
             addedSerializers.addAll(roundEnv.getElementsAnnotatedWith(element));
         }
         addedSerializers.forEach(this::generateSerializer);
-        // createSerializerMap(addedSerializers);
         return false;
     }
 

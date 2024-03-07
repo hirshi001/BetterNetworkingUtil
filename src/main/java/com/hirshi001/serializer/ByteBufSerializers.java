@@ -1,19 +1,53 @@
 package com.hirshi001.serializer;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ByteBufSerializers {
-
-    private final Map<Class<?>, ByteBufSerializer<?>> serializers = new HashMap<>();
-
-    public void addSerializer(Class<?> clazz, ByteBufSerializer<?> serializer){
-        serializers.put(clazz, serializer);
+    public static <T> ByteBufSerializer<T> getSerializer(Class<T> clazz) {
+        List<ClassLoader> classLoaders = getClassLoaders(clazz);
+        for (ClassLoader classLoader : classLoaders) {
+            Class<ByteBufSerializer<T>> serializerClass = getSerializerClass(clazz, classLoader);
+            if(serializerClass == null)
+                continue;
+            ByteBufSerializer<T> serializer = createInstance(serializerClass);
+            if(serializer != null)
+                return serializer;
+        }
+        return null;
     }
 
-    public ByteBufSerializer<?> getSerializer(Class<?> clazz){
-        return serializers.get(clazz);
+
+    @SuppressWarnings("unchecked")
+    private static <T> Class<ByteBufSerializer<T>> getSerializerClass(Class<T> clazz, ClassLoader classLoader) {
+        try {
+            return (Class<ByteBufSerializer<T>>) classLoader.loadClass(clazz.getName() + "Serializer");
+        } catch (ClassNotFoundException e) {
+            return null;
+        }
     }
 
+
+
+    private static <T> ByteBufSerializer<T> createInstance(Class<ByteBufSerializer<T>> clazz) {
+        try {
+            return clazz.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            return null;
+        }
+    }
+
+
+    private static List<ClassLoader> getClassLoaders(Class<?> clazz) {
+        List<ClassLoader> classLoaders = new ArrayList<>();
+        classLoaders.add(clazz.getClassLoader());
+        if (Thread.currentThread().getContextClassLoader() != null)
+            classLoaders.add(Thread.currentThread().getContextClassLoader());
+        classLoaders.add(ClassLoader.getSystemClassLoader());
+        return classLoaders;
+    }
 
 }

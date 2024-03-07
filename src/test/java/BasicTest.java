@@ -3,7 +3,10 @@ import com.google.testing.compile.Compiler;
 import com.google.testing.compile.JavaFileObjects;
 import com.hirshi001.buffer.bufferfactory.BufferFactory;
 import com.hirshi001.buffer.bufferfactory.DefaultBufferFactory;
+import com.hirshi001.serializer.ByteBufSerializer;
 import com.hirshi001.serializer.ByteBufSerializerAnnotationProcesser;
+import com.hirshi001.serializer.ByteBufSerializers;
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -14,6 +17,7 @@ import java.net.URLClassLoader;
 import java.util.Collection;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 public class BasicTest {
@@ -39,6 +43,12 @@ public class BasicTest {
         for(JavaFileObject fileObject : compilation.generatedSourceFiles()){
             System.out.println(fileObject.getCharContent(true));
         }
+    }
+
+    @Test
+    public void carTest() throws ClassNotFoundException {
+        Class<?> clazz = this.getClass().getClassLoader().loadClass("Car");
+        System.out.println(ByteBufSerializers.getSerializer(clazz));
     }
 
 }

@@ -32,9 +32,11 @@ dependencies {
 
     implementation  "com.google.auto.service:auto-service:1.0.1"
     implementation "com.github.hirshi001:bytebuffer:ea62bf49b9"
+
 }
 
 test {
     useJUnitPlatform()
     testLogging.showStandardStreams = true
 }
+
