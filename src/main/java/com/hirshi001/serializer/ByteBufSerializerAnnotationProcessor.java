@@ -50,11 +50,8 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         List<Element> addedSerializers = new ArrayList<>();
-        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "Processing");
-        System.out.println("Processing");
         for (TypeElement element : annotations) {
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "Processing: " + element);
-            System.out.println("Processing: " + element);
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Found annotation: " + element);
             addedSerializers.addAll(roundEnv.getElementsAnnotatedWith(element));
         }
         addedSerializers.forEach(this::generateSerializer);
@@ -109,6 +106,7 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
                     .replace("%DeserializeCode", deserializeCode));
             //.formatted(serializerName, fullClassName, serializerFieldCode, fullClassName, serializeCode, fullClassName, fullClassName, deserializeCode));
 
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Created Serializer: " + serializerFullName);
         } catch (Exception e) {
             e.printStackTrace();
         }
