@@ -14,6 +14,7 @@ import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.ElementFilter;
 import javax.lang.model.util.Types;
+import javax.tools.Diagnostic;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,7 +51,11 @@ public class ByteBufSerializerAnnotationProcesser extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         List<Element> addedSerializers = new ArrayList<>();
+        processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "Processing");
+        System.out.println("Processing");
         for (TypeElement element : annotations) {
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "Processing: " + element);
+            System.out.println("Processing: " + element);
             addedSerializers.addAll(roundEnv.getElementsAnnotatedWith(element));
         }
         addedSerializers.forEach(this::generateSerializer);
