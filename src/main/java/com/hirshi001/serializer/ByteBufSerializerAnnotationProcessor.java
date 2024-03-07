@@ -51,9 +51,9 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         List<Element> addedSerializers = new ArrayList<>();
         for (TypeElement element : annotations) {
-            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Found annotation: " + element);
             addedSerializers.addAll(roundEnv.getElementsAnnotatedWith(element));
-        }
+        };
+
         addedSerializers.forEach(this::generateSerializer);
         return false;
     }
@@ -267,7 +267,8 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
             if (mode == MODE_SERIALIZE)
                 return "object." + name + ".serialize(buffer);";
             else
-                return "object." + name + " = new " + type.toString() + "(buffer);";
+                return "object." + name + " = new " + type.toString() + "();\n" +
+                        "object." + name + ".deserialize(buffer);";
         } else if (type.toString().equals("java.lang.String")) {
             if (mode == MODE_SERIALIZE)
                 return BYTE_BUF_UTIL + ".writeStringToBuf(object." + name + ", buffer);";
@@ -342,7 +343,13 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
 
 
     private boolean shouldSerialize(VariableElement element) {
-        return element.getAnnotation(NoSerialize.class) == null && element.getModifiers().contains(Modifier.PUBLIC);
+        if(element.getAnnotation(Serialize.class) != null)
+            return true;
+        return element.getAnnotation(NoSerialize.class) == null
+                && element.getModifiers().contains(Modifier.PUBLIC)
+                && !element.getModifiers().contains(Modifier.STATIC)
+                && !element.getModifiers().contains(Modifier.FINAL)
+                && !element.getModifiers().contains(Modifier.TRANSIENT);
     }
 
     private TypeMirror getTrueType(TypeMirror type) {

@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ByteBufSerializers {
+
     public static <T> ByteBufSerializer<T> getSerializer(Class<T> clazz) {
-        List<ClassLoader> classLoaders = getClassLoaders(clazz);
-        for (ClassLoader classLoader : classLoaders) {
+        for (ClassLoader classLoader : getClassLoaders(clazz)) {
             Class<ByteBufSerializer<T>> serializerClass = getSerializerClass(clazz, classLoader);
             if(serializerClass == null)
                 continue;
+
             ByteBufSerializer<T> serializer = createInstance(serializerClass);
             if(serializer != null)
                 return serializer;
