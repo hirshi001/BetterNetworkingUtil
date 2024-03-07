@@ -3,18 +3,12 @@ import com.google.testing.compile.Compiler;
 import com.google.testing.compile.JavaFileObjects;
 import com.hirshi001.buffer.bufferfactory.BufferFactory;
 import com.hirshi001.buffer.bufferfactory.DefaultBufferFactory;
-import com.hirshi001.serializer.ByteBufSerializer;
-import com.hirshi001.serializer.ByteBufSerializerAnnotationProcesser;
+import com.hirshi001.serializer.ByteBufSerializerAnnotationProcessor;
 import com.hirshi001.serializer.ByteBufSerializers;
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import javax.tools.JavaFileObject;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
-import java.util.Collection;
 
 import static com.google.testing.compile.CompilationSubject.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -34,7 +28,7 @@ public class BasicTest {
     @Test
     public void test() throws Exception {
         Compilation compilation = Compiler.javac()
-                .withProcessors(new ByteBufSerializerAnnotationProcesser())
+                .withProcessors(new ByteBufSerializerAnnotationProcessor())
                 .compile(
                         JavaFileObjects.forResource("com/hirshi001/serializertest/ExampleClass.java"),
                         JavaFileObjects.forResource("com/hirshi001/serializertest/DependencyClass.java"));

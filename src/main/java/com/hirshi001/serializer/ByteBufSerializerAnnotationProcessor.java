@@ -1,7 +1,6 @@
 package com.hirshi001.serializer;
 
 import com.google.auto.service.AutoService;
-import com.hirshi001.buffer.buffers.ByteBuffer;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
@@ -23,9 +22,9 @@ import java.util.Set;
 
 
 @AutoService(Processor.class)
-@SupportedSourceVersion(SourceVersion.RELEASE_15)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("com.hirshi001.serializer.CreateByteBufSerializer")
-public class ByteBufSerializerAnnotationProcesser extends AbstractProcessor {
+public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
 
     public static final String BYTE_BUF_UTIL = "com.hirshi001.buffer.util.ByteBufUtil";
 

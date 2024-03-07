@@ -2,9 +2,7 @@ package com.hirshi001.serializer;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ByteBufSerializers {
     public static <T> ByteBufSerializer<T> getSerializer(Class<T> clazz) {
@@ -24,7 +22,7 @@ public class ByteBufSerializers {
     @SuppressWarnings("unchecked")
     private static <T> Class<ByteBufSerializer<T>> getSerializerClass(Class<T> clazz, ClassLoader classLoader) {
         try {
-            return (Class<ByteBufSerializer<T>>) classLoader.loadClass(clazz.getName() + "Serializer");
+            return (Class<ByteBufSerializer<T>>) classLoader.loadClass("com.hirshi001.serializer.serializers." + clazz.getSimpleName() + "Serializer");
         } catch (ClassNotFoundException e) {
             return null;
         }

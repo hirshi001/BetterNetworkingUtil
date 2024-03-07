@@ -28,9 +28,11 @@ publishing {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    testImplementation 'com.google.testing.compile:compile-testing:0.20'
 
-    implementation  "com.google.auto.service:auto-service:1.0.1"
+    testImplementation 'com.google.testing.compile:compile-testing:0.20'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0.1'
+    implementation 'com.google.auto.service:auto-service:1.0.1'
+
     implementation "com.github.hirshi001:bytebuffer:ea62bf49b9"
 
 }
