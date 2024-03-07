@@ -331,29 +331,6 @@ public class ByteBufSerializerAnnotationProcesser extends AbstractProcessor {
         return count;
     }
 
-
-    private String getDeserializerCode(List<VariableElement> elements, int indent) {
-        return "";
-        /*
-        StringBuilder builder = new StringBuilder();
-        for (VariableElement element : elements) {
-            if(!shouldSerialize(element))
-                continue;
-
-            TypeKind kind = element.asType().getKind();
-            String elementName = element.getSimpleName().toString();
-            // check if element is a primitive
-            if(kind.isPrimitive()) {
-                readPrimitive(kind, builder, elementName);
-            }else{
-                // writeObject(element, builder);
-            }
-        }
-        return builder.toString();
-
-         */
-    }
-
     private String getSerializerName(String objectClassName) {
         return objectClassName + "Serializer";
     }
@@ -361,10 +338,6 @@ public class ByteBufSerializerAnnotationProcesser extends AbstractProcessor {
 
     private boolean shouldSerialize(VariableElement element) {
         return element.getAnnotation(NoSerialize.class) == null && element.getModifiers().contains(Modifier.PUBLIC);
-    }
-
-    private String getMultiDimensionalArrayType(TypeMirror type) {
-        return "";
     }
 
     private TypeMirror getTrueType(TypeMirror type) {
