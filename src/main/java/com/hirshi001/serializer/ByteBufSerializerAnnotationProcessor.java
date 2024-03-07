@@ -265,10 +265,10 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
     private String writeObject(TypeMirror type, String name, int mode) {
         if (isByteBufSerializable(type)) {
             if (mode == MODE_SERIALIZE)
-                return "object." + name + ".serialize(buffer);";
+                return "object." + name + ".writeBytes(buffer);";
             else
                 return "object." + name + " = new " + type.toString() + "();\n" +
-                        "object." + name + ".deserialize(buffer);";
+                        "object." + name + ".readBytes(buffer);";
         } else if (type.toString().equals("java.lang.String")) {
             if (mode == MODE_SERIALIZE)
                 return BYTE_BUF_UTIL + ".writeStringToBuf(object." + name + ", buffer);";
