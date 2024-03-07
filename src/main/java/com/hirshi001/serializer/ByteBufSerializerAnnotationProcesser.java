@@ -22,7 +22,7 @@ import java.util.Set;
 
 
 @AutoService(Processor.class)
-@SupportedSourceVersion(SourceVersion.RELEASE_18)
+@SupportedSourceVersion(SourceVersion.RELEASE_15)
 @SupportedAnnotationTypes("com.hirshi001.serializer.CreateByteBufSerializer")
 public class ByteBufSerializerAnnotationProcesser extends AbstractProcessor {
 
