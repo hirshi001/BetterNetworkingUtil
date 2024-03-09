@@ -178,7 +178,7 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
 
     private String writeArray(TypeMirror type, String name, String ogName, TypeMirror trueType, int dimension, String indent, int mode) {
         TypeMirror componentType = ((ArrayType) type).getComponentType();
-        if (dimension == 1) {
+        if (dimension == 1) { // base case
             if (componentType.getKind().isPrimitive()) {
                 // capitalize first letter
                 String arrType = componentType.toString();
@@ -212,24 +212,25 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
                             .formatted(name, name, componentType.toString(), serializingCode.replace("\n", "\n" + indent + indent));
                 }
             }
-        } else {
+        } else { // recursive case
             if (mode == MODE_SERIALIZE) {
                 String varName = "i" + dimension;
                 return """
-                        for(int %var = 0; %var < object.%name.length; %var++) {
-                            if(object.%name[%var] == null) {
-                                buffer.writeInt(-1);
-                                continue;
+                        if(object.%name == null) {
+                            buffer.writeInt(-1);
+                        }
+                        else{
+                            buffer.writeInt(object.%name.length);
+                            for(int %var = 0; %var < object.%name.length; %var++) {
+                                %innerloop
                             }
-                            buffer.writeInt(object.%name[%var].length);
-                            %innerloop
                         }"""
                         .replace("%var", varName)
                         .replace("%name", name)
                         .replace(
                                 "%innerloop",
                                 writeArray(componentType, name + "[" + varName + "]", ogName, trueType, dimension - 1, indent, mode)
-                                        .replace("\n", "\n" + indent));
+                                        .replace("\n", "\n" + indent + indent));
             } else {
                 String lengthName = ogName + "length" + dimension;
                 String varName = ogName + "i" + dimension;
@@ -241,11 +242,6 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
                         else{
                             object.%name = new %truename[%lengthName]%arrDim;
                             for(int %var = 0; %var < %lengthName; %var++) {
-                                if(object.%name[%var] == null) {
-                                    buffer.writeInt(-1);
-                                    continue;
-                                }
-                                buffer.writeInt(object.%name[%var].length);
                                 %innerloop
                             }
                         }"""
