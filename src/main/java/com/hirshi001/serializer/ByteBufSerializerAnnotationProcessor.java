@@ -191,10 +191,15 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
                 String serializingCode = writeObject(componentType, name + "[i]", mode);
                 if (mode == MODE_SERIALIZE)
                     return """
-                            buffer.writeInt(object.%s.length);
-                            for(int i = 0; i < object.%s.length; i++) {
-                                %s
-                            }""".formatted(name, name, serializingCode.replace("\n", "\n" + indent));
+                            if(object.%s == null) {
+                                buffer.writeInt(-1);
+                            }
+                            else{
+                                buffer.writeInt(object.%s.length);
+                                for(int i = 0; i < object.%s.length; i++) {
+                                    %s
+                                }
+                            }""".formatted(name, name, name, serializingCode.replace("\n", "\n" + indent));
                 else {
                     String varName = ogName + "length" + dimension;
                     return """
