@@ -121,7 +121,7 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
                 continue;
 
             TypeMirror type = getTrueType(element.asType());
-            if (type.getKind().isPrimitive() || type.toString().equals("java.lang.String") || isByteBufSerializable(type))
+            if (type.getKind().isPrimitive() || "java.lang.String".equals(type.toString()) || isByteBufSerializable(type))
                 continue;
 
             serializerType.add(type);
@@ -270,7 +270,7 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
             else
                 return "object." + name + " = new " + type.toString() + "();\n" +
                         "object." + name + ".readBytes(buffer);";
-        } else if (type.toString().equals("java.lang.String")) {
+        } else if ("java.lang.String".equals(type.toString())) {
             if (mode == MODE_SERIALIZE)
                 return BYTE_BUF_UTIL + ".writeStringToBuf(object." + name + ", buffer);";
             else
