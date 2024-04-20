@@ -28,11 +28,11 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
 
     public static final String BYTE_BUF_UTIL = "com.hirshi001.buffer.util.ByteBufUtil";
 
-    public static final String ARR_UTIL = "com.hirshi001.serializer.ByteBufferArrayUtil";
-    public static final String BYTE_BUF_SERIALIZER = "com.hirshi001.serializer.ByteBufSerializer";
+    public static final String ARR_UTIL = "com.hirshi001.betternetworkingutil.ByteBufferArrayUtil";
+    public static final String BYTE_BUF_SERIALIZER = "com.hirshi001.betternetworkingutil.ByteBufSerializer";
     public static final String BYTE_BUFFER = "com.hirshi001.buffer.buffers.ByteBuffer";
 
-    public static final String PACKAGE = "com.hirshi001.serializer.serializers";
+    public static final String PACKAGE = "com.hirshi001.betternetworkingutil.serializers";
 
     Types typeUtils;
     TypeMirror byteBufSerializable;
