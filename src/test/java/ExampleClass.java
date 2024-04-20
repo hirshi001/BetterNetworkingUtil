@@ -1,5 +1,4 @@
-import com.hirshi001.serializer.CreateByteBufSerializer;
-import com.hirshi001.serializer.NoSerialize;
+import com.hirshi001.betternetworkingutil.CreateByteBufSerializer;
 
 @CreateByteBufSerializer
 public class ExampleClass {

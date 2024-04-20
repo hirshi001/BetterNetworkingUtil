@@ -1,9 +1,6 @@
-package com.hirshi001.serializer;
+package com.hirshi001.betternetworkingutil;
 
-import com.google.common.annotations.GwtIncompatible;
 import com.hirshi001.buffer.buffers.ByteBuffer;
-
-import java.lang.reflect.Array;
 
 public class ByteBufferArrayUtil {
 

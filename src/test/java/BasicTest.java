@@ -4,8 +4,8 @@ import com.google.testing.compile.JavaFileObjects;
 import com.hirshi001.buffer.bufferfactory.BufferFactory;
 import com.hirshi001.buffer.bufferfactory.DefaultBufferFactory;
 import com.hirshi001.buffer.buffers.ByteBuffer;
-import com.hirshi001.serializer.ByteBufSerializerAnnotationProcessor;
-import com.hirshi001.serializer.ByteBufSerializers;
+import com.hirshi001.betternetworkingutil.ByteBufSerializerAnnotationProcessor;
+import com.hirshi001.betternetworkingutil.ByteBufSerializers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

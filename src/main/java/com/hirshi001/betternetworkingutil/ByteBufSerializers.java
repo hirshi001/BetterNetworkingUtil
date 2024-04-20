@@ -1,4 +1,4 @@
-package com.hirshi001.serializer;
+package com.hirshi001.betternetworkingutil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;

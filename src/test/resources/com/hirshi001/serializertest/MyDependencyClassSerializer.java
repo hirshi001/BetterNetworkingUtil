@@ -1,7 +1,6 @@
 package com.hirshi001.serializertest;
 import com.hirshi001.buffer.buffers.ByteBuffer;
-import com.hirshi001.serializer.ByteBufSerializer;
-import com.hirshi001.serializer.CreateByteBufSerializer;
+import com.hirshi001.betternetworkingutil.ByteBufSerializer;
 
 public class MyDependencyClassSerializer implements ByteBufSerializer<DependencyClass> {
 

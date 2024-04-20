@@ -1,4 +1,4 @@
-package com.hirshi001.serializer;
+package com.hirshi001.betternetworkingutil;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.hirshi001.serializer;
+package com.hirshi001.betternetworkingutil;
 
 import com.google.auto.service.AutoService;
 
@@ -63,7 +63,7 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
         String packageName = element.getEnclosingElement().toString(); // example "java.lang"
         String fullClassName = packageName + "." + className; // example "java.lang.String"
         String serializerName = getSerializerName(className); // example "StringSerializer"
-        String serializerFullName = PACKAGE + "." + serializerName; // example "com.hirshi001.serializer.serializers.StringSerializer"
+        String serializerFullName = PACKAGE + "." + serializerName; // example "com.hirshi001.betternetworkingutil.serializers.StringSerializer"
         List<VariableElement> fields = ElementFilter.fieldsIn(element.getEnclosedElements());
 
         System.out.println("Class: " + className + " is annotated with @CreateByteBufSerializer");
