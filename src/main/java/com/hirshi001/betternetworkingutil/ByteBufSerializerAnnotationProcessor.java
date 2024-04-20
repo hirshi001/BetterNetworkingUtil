@@ -44,7 +44,7 @@ public class ByteBufSerializerAnnotationProcessor extends AbstractProcessor {
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         typeUtils = processingEnv.getTypeUtils();
-        byteBufSerializable = processingEnv.getElementUtils().getTypeElement("com.hirshi001.serializer.ByteBufSerializable").asType();
+        byteBufSerializable = processingEnv.getElementUtils().getTypeElement("com.hirshi001.betternetworkingutil.ByteBufSerializable").asType();
     }
 
     @Override
